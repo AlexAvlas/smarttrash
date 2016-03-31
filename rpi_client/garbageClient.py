@@ -5,29 +5,58 @@ CLIENT - GARBAGE BIN
 import RPi.GPIO as GPIO
 import time
 import paho.mqtt.client as mqtt
+import ConfigParser
 
-#Constants to be initialized 
-GARBAGE_ID = "001"
+#Importing the Config File and Parsing the file using the ConfigParser
+config_file = "./config.ini"
+Config = ConfigParser.ConfigParser()
+Config.read(config_file)
+logging.basicConfig(filename='logger.log',level=logging.DEBUG)
+
+'''****************************************************************************************
+Function Name 		:	ConfigSectionMap
+Description		:	Parsing the Config File and Extracting the data and returning it
+Parameters 		:	section - section to be parserd
+****************************************************************************************'''
+def ConfigSectionMap(section):
+    dict1 = {}
+    options = Config.options(section)
+    for option in options:
+        try:
+            dict1[option] = Config.get(section, option)
+            if dict1[option] == -1:
+                DebugPrint("skip: %s" % option)
+        except:
+            logging.debug("exception on %s!" % option)
+            dict1[option] = None
+    return dict1
+
 #Trigger Pin to be connected to the GPIO 23
 TRIG = 23 
 #Echo Pin to be connected to the GPIO 24
 ECHO = 24
 
+GARBAGE_ID = ConfigSectionMap("trashCan_id")['trashcan_1']
+MQTT_SERVER_IP = ConfigSectionMap("mqtt_keys")['mqtt_server_ip']
+MQTT_SERVER_PORT = ConfigSectionMap("mqtt_keys")['mqtt_server_port']
+MQTT_CHANNEL = ConfigSectionMap("mqtt_keys")['mqtt_channel']
+MQTT_ADDRESS = ConfigSectionMap("mqtt_keys")['mqtt_address']
+
 '''****************************************************************************************
 
-Function Name 	:	init
+Function Name 		:	init
 Description		:	Initalize the MQTT Protocol and connect to the host
 Parameters 		:	None
 
 ****************************************************************************************'''
 def init():
 	global mqttc
-	mqttc = mqtt.Client("python_pub")
-	mqttc.connect("192.168.1.224", 1883)
+	mqttc = mqtt.Client(MQTT_ADDRESS)
+	mqttc.connect(MQTT_SERVER_IP,MQTT_SERVER_PORT)
 
 '''****************************************************************************************
 
-Function Name 	:	ultrasonicSensor_init
+Function Name 		:	ultrasonicSensor_init
 Description		:	Initalize the pins and set the Board Pins to BCM "Broadcom SOC channel"
 Parameters 		:	None
 
@@ -40,13 +69,13 @@ def ultrasonicSensor_init():
 	
 '''****************************************************************************************
 
-Function Name 	:	distanceMeasurement
+Function Name 		:	distanceMeasurement
 Description		:	Deducts the Distace and publishes to the MQTT Broker 
 Parameters 		:	None
 
 ****************************************************************************************'''
 def distanceMeasurement():
-	prev_distance = 0
+	l_prev_distance = 0
 	while 1:
 		ultrasonicSensor_init()
 		time.sleep(2)		
@@ -62,14 +91,14 @@ def distanceMeasurement():
 
 		pulse_duration = pulse_end - pulse_start
 
-		distance = pulse_duration * 17150
+		l_distance = pulse_duration * 17150
 
-		distance = round(distance, 2)
+		l_distance = round(l_distance, 2)
 
-		if(prev_distance != distance and prev_distance > (distance+3) or prev_distance < (distance-3)):
-			prev_distance = distance
-			mqttc.publish("garbaseData", "{\"container\":\""+GARBAGE_ID+"\",\"level\":"+str(distance)+"}")
-		print "Distance:",distance,"cm"
+		if(l_prev_distance != l_distance and l_prev_distance > (l_distance+3) or l_prev_distance < (l_distance-3)):
+			l_prev_distance = l_distance
+			mqttc.publish(MQTT_CHANNEL, "{\"container\":\""+GARBAGE_ID+"\",\"level\":"+str(l_distance)+"}")
+		print "Distance:",l_distance,"cm"
 		GPIO.cleanup()
 
 #Main - Script starts from here

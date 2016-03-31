@@ -6,7 +6,9 @@ import paho.mqtt.client as mqtt
 from pubnub import Pubnub
 import ConfigParser
 import logging
-import json  
+import json
+import smtplib  
+
 #Importing the Config File and Parsing the file using the ConfigParser
 config_file = "./config.ini"
 Config = ConfigParser.ConfigParser()
@@ -15,7 +17,7 @@ logging.basicConfig(filename='logger.log',level=logging.DEBUG)
 
 '''****************************************************************************************
 
-Function Name 	:	ConfigSectionMap
+Function Name 		:	ConfigSectionMap
 Description		:	Parsing the Config File and Extracting the data and returning it
 Parameters 		:	section - section to be parserd
 
@@ -41,9 +43,47 @@ SUB_KEY = ConfigSectionMap("pubnub_init")['sub_key']
 HOST_IP = ConfigSectionMap("mqtt_init")['host_ip']
 CHANNEL_OBJECT = "garbaseData"
 
+SENDER_MAIL_ID = ConfigSectionMap("email_user_settings")['user_email_id']
+SENDER_PASSWORD = ConfigSectionMap("email_user_settings")['user_password']
+RECEIVER_MAIL_ID = ConfigSectionMap("email_receiver_settings")['receiver_mail_id']
+EMAIL_HOST_AND_PORT = ConfigSectionMap("email_user_settings")['host_and_port']
+SUBJECT = "TRASH CAN WARNING"
+TEXT = "Trash Can is Full"
+
+# Prepare actual message
+MESSAGE_TO_SEND = """\
+Subject: %s
+
+%s
+""" % (SUBJECT, TEXT)
+
 '''****************************************************************************************
 
-Function Name 	:	on_connect
+Function Name 		:	mail_init
+Description		:	Initilize the mail with the username and password 
+Parameters 		:	none
+
+****************************************************************************************'''
+def mail_init():
+	global server
+	mail_connect = 0
+	while mail_connect < 3:
+		try:
+			server = smtplib.SMTP(EMAIL_HOST_AND_PORT)
+			server.starttls()
+			server.login(SENDER_MAIL_ID,SENDER_PASSWORD)
+			server.sendmail(SENDER_MAIL_ID,RECEIVER_MAIL_ID,MESSAGE_TO_SEND)
+			server.quit()
+			return None 
+		except smtplib.SMTPException:
+			print "Error: unable to Connect to email server"
+			mail_connect += 1
+	return None
+
+
+'''****************************************************************************************
+
+Function Name 		:	on_connect
 Description		:	The callback for when the client receives a CONNACK response 
 					from the server.
 Parameters 		:	client - client id
@@ -59,7 +99,7 @@ def on_connect(client, userdata, rc):
 
 '''****************************************************************************************
 
-Function Name 	:	on_message
+Function Name 		:	on_message
 Description		:	The callback for when a PUBLISH message is received from the server.
 Parameters 		:	client - client id
 					msg = message received from the client
@@ -67,13 +107,19 @@ Parameters 		:	client - client id
 ****************************************************************************************'''
 # 
 def on_message(client, userdata, msg):
+	global server
 	message = dict()
-	message = json.loads(msg.payload)  
-	print pubnub.publish(channel="garbageApp-resp", message=message)
+	message = json.loads(msg.payload)
+	print message  
+	pubnub.publish(channel="garbageApp-resp", message=message)
+	if(message.has_key("level") and message["level"] <= 40):
+		mail_init()
+		print "Trash can is Full"
+
 
 '''****************************************************************************************
 
-Function Name 	:	init
+Function Name 		:	init
 Description		:	Initalize the MQTT Protocol, pubnub keys and Starts Subscribing 
 					from the garbageApp-req channels
 Parameters 		:	None
@@ -83,7 +129,6 @@ def init():
 	#Pubnub Initialization
 	global pubnub,client 
 	pubnub = Pubnub(publish_key=PUB_KEY,subscribe_key=SUB_KEY)
-	pubnub.subscribe(channels='garbageApp-req', callback=appcallback, error=appcallback, reconnect=reconnect, disconnect=disconnect)
 	client = mqtt.Client()
 	client.on_connect = on_connect
 	client.on_message = on_message
@@ -95,52 +140,6 @@ def init():
 	# Other loop*() functions are available that give a threaded interface and a
 	# manual interface.
 	client.loop_forever()
-	
-'''****************************************************************************************
-
-Function Name 	:	appcallback
-Description		:	Waits for the Request sent from the APP 
-Parameters 		:	message - Request sent from the app
-					channel - channel for the appcallback
-
-****************************************************************************************'''
-def appcallback(message, channel):
-	if(message.has_key("requester") and message.has_key("requestType")):
-		if(message["requestType"] == 0):
-			appResponse(message["requester"],message["requestType"])
-	else:
-		pass
-
-'''****************************************************************************************
-
-Function Name 	:	error
-Description		:	If error in the channel, prints the error
-Parameters 		:	message - error message
-
-****************************************************************************************'''
-def error(message):
-    logging.debug("ERROR : " + str(message))
-
-'''****************************************************************************************
-
-Function Name 	:	reconnect
-Description		:	Responds if server connects with pubnub
-Parameters 		:	message
-
-****************************************************************************************'''
-def reconnect(message):
-    logging.info("RECONNECTED")
-
-'''****************************************************************************************
-
-Function Name 	:	disconnect
-Description		:	Responds if server disconnects from pubnub
-Parameters 		:	message
-
-****************************************************************************************'''
-def disconnect(message):
-    logging.info("DISCONNECTED")
-	
 
 if __name__ == '__main__':
 	#Initialize the Script
