@@ -49,8 +49,8 @@ This trash can is assisted by a mobile app which is used to check the current le
 2. In the server, run the 'garbageServer.py' script to start the application on server.
 3. In the raspberry pi , Run the 'garbageClient.py' script to start the application on the client.
 4. Launch the app on a mobile phone and check the level.
-5. Using an object, obstruct the ultrasonic sensor from a distance, to simulate the presence of trash at a certain level. Notice that , with every change in level, the level inicator on the app will get updated.
-6. Bring the obstructing object very close to the sensor to simulate a full trash can scenario. In this case a notification email will be sent to the configured email id.
+5. Using an object, obstruct the ultrasonic sensor from a distance, to simulate the presence of trash at a certain level. Notice that , with every change in level, the level indicator on the app will get updated.
+6. Bring the obstructing object very close to the sensor to simulate a full trash can scenario. In this case a notification email will be sent to the configured email id to report that the trash can is full.
 
   
 
