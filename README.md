@@ -1,46 +1,35 @@
-# Smart Trash Can
+# Smart Trash Can with IBM IoT Framework
 
-An IoT enabled Smart Trash Can which can update users about its current level and also notify via email in case the level breaches a critical point. 
+An IoT enabled Smart Trash Can which can update users about its current level through a mobile app and also notify via SMS in case the level breaches a critical point. It uses IBM's IoT Platform to enable MQTT based messaging between the Trasn can and mobile app. 
 
 #Overview
-This trash can is assisted by a mobile app which is used to check the current level of filled trash inside the can. The trash can is powered by raspberry pi b+ and has a ultrasonic sensor which is used to sense the level. The schematic diagram of the hardware setup is as follows.
+Mobile app which is used to display the current level of filled trash inside the can. The trash can is powered by IOTIFY's raspberry pi simulator and has a ultrasonic sensor which is used to sense the level.  The hardware connection between Raspberry Pi and ultrasonic sensor is as per the IOTIFY TrasnCan project description.
 
-![Schematic](https://github.com/iotify/smarttrash/blob/master/trashCan.png "Schematic")
 
-#Steps to Build
-1. There are three source folders for this project, app, rpi_client and server. "app" contains the mobile app, "rpi_client" contains the raspberry pi client side code and "Server" contains the server side code.
-2. For building the mobile app, please refer to the official cordova documentation to build the apk file which can then be installed on an android phone. 
-3. Transfer the rpi_client folder to raspberry pi and update the [config file](https://github.com/iotify/smarttrash/blob/master/rpi_client/config.ini) as per the configuration section below.
-4. Transfer the server folder to a server having python environment and update the   [config file](https://github.com/iotify/smarttrash/blob/master/server/config.ini) as per the configuration section below.
+#Pre Requisites
 
-#Configuration
-1. Update the config file under "Server" folder to modify the parameters which are explained as follows
+1. [IBM Id Bluemix Account](https://console.ng.bluemix.net/registration/) 
+2. [Twillio Account](https://www.twilio.com/try-twilio)
 
-  - pub_key : PubNub publish key
-  - sub_key : PubNub subscribe key
-  - host_ip : IP of the server host machine
-  - host_and_port : DNS host and port of the mail server
-  - user_email_id : Email id of the sender 
-  - user_password : Password of the sender
-  - receiver_mail_id : Email of the receiver
-  
 
-2. Update the config file under "rpi_client" folder to modify the parameters which are explained as follows
+#Steps to Build the Mobile App
 
-  - trashcan_1 : ID of trash can ( can be left as default value)
-  - mqtt_server_ip : IP address of the server hosting the MQTT broker
-  - mqtt_server_port : Port number of MQTT
-  - mqtt_channel : MQTT channel name ( can be left as default value)
-  - mqtt_address : MQTT address ( can be left as  default value)
+For building the mobile app, please refer to the official cordova documentation to build the apk file which can then be installed on an android phone. The app source is located in [TrashCanApp](TrashCanApp} folder under this repo.
 
-3. For sending email notification , if the sender's email service is GMail, then you need to enable a configuration under the Gmail account by visiting the following link
 
-    -   https://www.google.com/settings/u/0/security/lesssecureapps
-  
-        Make sure that "Turn on" option is selected for the setting  "Access for less secure apps".
+#Configuration for Trash Can Sensing Application
 
-        For other email service providers, please check the respective documentation. 
- 
+The application source for the Trash can sensing is built on python. Refer the file [TrashCan.py](TrashCan.py} under this repo.
+Clone this repo within IOTIFY console and copy this file to another location from where you would like to run it. 
+
+
+#Run Trash Can Sensing Application on Raspberry Pi
+
+Run this program by issuing the following command
+
+          python TrashCan.py
+
+
 
 
 
