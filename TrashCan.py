@@ -89,7 +89,10 @@ def distanceMeasurement():
 					l_prev_distance = l_distance
 					previousTime = 0
 					message = {"ID":1,"distance":l_distance}
-					deviceId = "APP"
+					
+					deviceId = "TRASHCANAPP_001"
+					deviceType = "IOTIFY_APP"
+					
 					try:
 						# publishing the message to the Device called APP
 						pubReturn = client.publishEvent(deviceType, deviceId, "status", "json", message)
@@ -145,13 +148,13 @@ Parameters 		:	-
 
 def init():
 	global client,deviceType
-	organization = "5q764p" #Your organization ID
-	appId = "DEVICE"   # The Device you've created and wants to connect with
+	organization = "c25kx4" #Your organization ID
+	appId = "TRASHCAN_001"   # The Device you've created and wants to connect with
 	authMethod = "apikey" #Method of authentication (the only value currently supported is apikey)
-	authKey = "a-5q764p-bpnugpigze" #API key (required if auth-method is apikey).
-	authToken = "JZ4YT5_*n+9OWXw9*w"#API key token (required if auth-method is apikey).
-	deviceType = "Trashcan" # The Type of the device created in your organization 
-	deviceId = "DEVICE" # The Device you've created and wants to connect with                                                                                                       
+	authKey = "a-c25kx4-8jlsytrdfu" #API key (required if auth-method is apikey).
+	authToken = "mK&L+ymD*pI5tzKv0s"#API key token (required if auth-method is apikey).
+	deviceType = "iotify_trashcan" # The Type of the device created in your organization 
+	deviceId = "TRASHCAN_001" # The Device you've created and wants to connect with                                                                                                       
 	try:
 		# options require for the connection
 		options = {"org": organization, "id":appId, "auth-method": authMethod, "auth-key": authKey, "auth-token": authToken}
