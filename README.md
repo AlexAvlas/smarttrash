@@ -6,7 +6,7 @@ An IoT enabled Smart Trash Can which can update users about its current level th
 Mobile app which is used to display the current level of filled trash inside the can. The trash can is powered by IOTIFY's raspberry pi simulator and has a ultrasonic sensor which is used to sense the level.  The hardware connection between Raspberry Pi and ultrasonic sensor is as per the IOTIFY TrasnCan project description.
 
 
-#Pre Requisites
+#[Pre Requisites](#pre-requisites)
 
 1. [IBM Id Bluemix Account](https://console.ng.bluemix.net/registration/) 
 2. [Twillio Account](https://www.twilio.com/try-twilio)
