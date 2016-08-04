@@ -70,7 +70,7 @@ Step 6: Add require.js file in the index.html
           -> "js/require.js"
 
 
-Step 7: Create an empty folder and change directory to that.
+Step 7: Create an empty directory and change to that directory. This is the root directory for this Cordova project.
 
           -> Create a cordova project using the command 
 
@@ -88,7 +88,7 @@ Step 11: Build the app by executing the following command in the terminal in the
           
           cordova build android
 
-Step 12: You can find the generated apk file in the file path
+Step 12: You can find the generated apk file in the following path relative to the cordova project root directory.
 	
 		/platforms/android/build/outputs/apk
 			
