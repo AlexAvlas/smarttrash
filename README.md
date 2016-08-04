@@ -46,28 +46,53 @@ Edit the line numbers in [index.js](https://github.com/iotify/smarttrash/blob/ma
           auth-token           61                  Generated authentication token  
 
 
-#Steps to Build the Mobile App
+#[Steps to Build the Mobile App](#mobile-app-build)
 
-For building the mobile app, please refer to the official cordova documentation to build the apk file which can then be installed on an android phone. The app source is located in [TrashCanApp](TrashCanApp} folder under this repo.
+For building the mobile app, please refer to the official Cordova & Android documentation to setup the build dependencies. 
+
+Follow the steps below to build the APK file for the mobile app.
+
+Step 1: Clone this repository https://github.com/ibm-watson-iot/iot-nodejs to get the nodejs sdk for the IBM IoT platform.
+
+Step 2: Add this parent folder of the cloned repository folder in the [js](https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www/js) folder.
+
+Step 3: Edit [index.html](https://github.com/iotify/smarttrash/blob/master/TrashCanApp/www/index.html) file add this line
+          
+          -> "js/iot-nodejs/dist/iotf-client-bundle.js"
+
+Step 4: To make nodejs package work work have to download the require.js program from the link below 
+
+          -> http://requirejs.org/docs/download.html#requirejs
+          
+Step 5: Copy the require.js file under [js]((https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www/js) folder.
+
+Step 6: Add require.js file in the index.html
+          -> "js/require.js"
 
 
-#Configuration for Trash Can Sensing Application
+Step 7: Create an empty folder and change directory to that.
 
-The application source for the Trash can sensing is built on python. Refer the file [TrashCan.py](TrashCan.py} under this repo.
-Clone this repo within IOTIFY console and copy this file to another location from where you would like to run it. 
-Open the file and make the following edits to configure IBM IOT and Twillio settings. 
+          -> Create a cordova project using the command 
+
+	          cordova create appname
+
+Step 8: Add the app package in the folder [www](https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www) in the newly created cordova app folder.
+
+Step 9: Add the android platform by executing this command in the terminal
+
+		cordova platform add android
+		
+Step 10:	In the config.xml file in the root folder change the name of the app to the name you want.
+
+Step 11: Build the app by executing the following command in the terminal in the root folder of the cordova app
+          
+          cordova build android
+
+Step 12: You can find the generated apk file in the file path
+	
+		/platforms/android/build/outputs/apk
+			
 
 
-#Run Trash Can Sensing Application on Raspberry Pi
-
-Run this program by issuing the following command
-
-          python TrashCan.py
-
-
-
-
-
-#Test the Trash Can
 
 
