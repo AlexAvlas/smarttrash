@@ -20,21 +20,30 @@ These configurations are to be done as variables, which are already defined in t
 
 Edit the variables in the following lines as follows 
 
-Line No.            Variable Name       Description
-account_sid	23 		Twilio account SID
-auth_token	24 		Twilio account authToken
-organization	180 		IBM account organization ID
-authKey		187 		Generated API key
-authToken		188 		Generated Authentication token
+          Variable name       Line no.           Description
+
+          account_sid         23                 Twilio account SID
+
+          auth_token          24                 Twilio account authToken
+
+          organization        180                IBM account organization ID
+
+          authKey             187                Generated API key
+
+          authToken	          188                Generated Authentication token
 
 #[Mobile App Configuration](#mobile-app-config)
 The IBM IoT platform configurations has to be done in the mobile app as well, since the mobile app is also registered as a device instance for receiving the readings published by the trash can.
 
 Edit the line numbers in [index.js](https://github.com/iotify/smarttrash/blob/master/TrashCanApp/www/js/index.js)
-Line No.             Variable Name       Description
-org 		 55		 ibm account organization ID
-auth-key		 60		 api key(generated api keys)	
-auth-token	 61	   	 authtoken(generated api keys)
+
+          Variable Name        Line no.            Description
+
+          org                  55                  IBM account organization ID
+
+          auth-key             60                  Generated API key	
+
+          auth-token           61                  Generated authentication token  
 
 
 #Steps to Build the Mobile App
