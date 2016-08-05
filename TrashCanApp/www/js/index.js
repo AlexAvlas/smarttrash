@@ -52,13 +52,13 @@ var app = {
         
         var Client = require('ibmiotf');
         var appClientConfig = {
-        "org" : "c25kx4",
+        "org" : "",
         "id" : "TRASHCANAPP_001",
         "domain": "internetofthings.ibmcloud.com",
         "type" : "IOTIFY_APP",
         "auth-method" : "apikey",
-        "auth-key":"a-c25kx4-8jlsytrdfu",
-        "auth-token" : "mK&L+ymD*pI5tzKv0s"
+        "auth-key":"",
+        "auth-token" : ""
         };
       appClient = new Client.IotfApplication(appClientConfig);
       
