@@ -53,29 +53,26 @@ Edit the line numbers in [index.js](https://github.com/iotify/smarttrash/blob/ma
 
 #[Steps to Build the Mobile App](#mobile-app-build)
 
-For building the mobile app, please refer to the official Cordova & Android documentation to setup the build dependencies. 
+For building the mobile app, please refer to the official Cordova & Android documentation to setup the build dependencies. You will have to setup a build system with the dependencies, primarily the NodeJS, Java and Ant among others. 
 
-Follow the steps below to build the APK file for the mobile app.
+Follow the steps below to build the APK file for the mobile app. All these steps are to be performed on the build system. These steps have been verified on a build system with Ubuntu mate OS along with Android version 23 & Cordova 6.3.0
 
-Step 1: Clone this repository https://github.com/ibm-watson-iot/iot-nodejs to get the nodejs sdk for the IBM IoT platform.
+Step 1: Clone this repository and run the following commands from within the repository to pull the submodules from https://github.com/ibm-watson-iot/iot-nodejs to get the nodejs sdk for the IBM IoT platform.
 
-Step 2: Add this parent folder of the cloned repository folder in the [js](https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www/js) folder.
+	git submodule init
+	git submodule update
 
-
-
-
-
-Step 3: Add the android platform by executing this command in the terminal under the app root folder ( TrashCanApp)
+Step 2: Add the android platform by executing this command in the terminal under the app root folder ( TrashCanApp)
 
 		cordova platform add android
 		
-Step 4:	In the config.xml file in the root folder change the name of the app to the name you want. This is optional step. By default the app name is "Trash Can"
+Step 3:	In the config.xml file in the root folder change the name of the app to the name you want. This is optional step. By default the app name is "Trash Can"
 
-Step 5: Build the app by executing the following command in the terminal in the root folder of the cordova app
+Step 4: Build the app by executing the following command in the terminal in the root folder of the cordova app
           
           cordova build android
 
-Step 6: Once build is successful, you can find the generated apk file in the following path relative to the cordova project root directory.
+Step 5: Once build is successful, you can find the generated apk file in the following path relative to the cordova project root directory.
 	
 		/platforms/android/build/outputs/apk
 			
