@@ -25,6 +25,8 @@ auth_token  = ""  # Enter your auth token
 
 twilioClient = TwilioRestClient(account_sid, auth_token)
 
+twilionumber = "" # Your Twilio phone Number you will get it while registration
+receivernumber = "" #Your verified phone number
 
 
 # Pin Definitons:                                                                                                                
@@ -134,7 +136,7 @@ def distanceMeasurement():
 				#This means that in this measurement loop , the changeover has happend 
 				if criticalLevelChangeOverFlag == True:
 					try:
-						message = twilioClient.messages.create(body=messageBody,to="+919738300498",from_="+12512724152")	
+						message = twilioClient.messages.create(body=messageBody,to=twilionumber,from_=receivernumber)	
 					except TwilioRestException as e:
 						logging.error("The exception in twilio %s,%s"(e,type(e)))	
 					
@@ -153,7 +155,7 @@ def distanceMeasurement():
 
 					if diff_minutes > NOTIFICATION_TIME_DELAY:
 						try:								
-							message = twilioClient.messages.create(body=messageBody,to="+919738300498",from_="+12512724152")	
+							message = twilioClient.messages.create(body=messageBody,to=twilionumber,from_=receivernumber)	
 						except TwilioRestException as e:
 							logging.error("The exception in twilio %s,%s"(e,type(e)))	
 						
