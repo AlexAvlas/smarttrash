@@ -1,6 +1,6 @@
 # Smart Trash Can with IOTIFY & IBM IoT Framework
 
-This is the accompanying source code for [this](https://blog.iotify.io/monitor-your-trash-can-with-iotify-ibm-iot-framework/) blog post.
+This is the accompanying source code for [this](https://blog.iotify.io/monitor-your-trash-can-with-iotify-ibm-iot-framework/) IOTIFY documentation.
 
 This project is an IoT enabled Smart Trash Can which can update users about its current level through a mobile app and also notify via SMS in case the level breaches a critical point. It uses IBM's IoT Platform to enable MQTT based messaging between the Trash can and mobile app. 
 
