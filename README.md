@@ -25,12 +25,17 @@ Edit the variables in the following lines as follows
           account_sid         23                 Twilio account SID
 
           auth_token          24                 Twilio account authToken
+          
+          twilionumber        28                 Twilio Number ( Your Twilio subscribed number)
+          
+          receivernumber      29                 Twilio verified number (where you want to receive the SMS notifications). 
+                                                 Should have country code, for example +18458892405
 
-          organization        180                IBM account organization ID
+          organization        182                IBM account organization ID
 
-          authKey             187                Generated API key
+          authKey             189                Generated API key
 
-          authToken	          188                Generated Authentication token
+          authToken	      190                Generated Authentication token
 
 #[Mobile App Configuration](#mobile-app-config)
 The IBM IoT platform configurations has to be done in the mobile app as well, since the mobile app is also registered as a device instance for receiving the readings published by the trash can.
