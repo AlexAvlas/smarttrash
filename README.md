@@ -61,39 +61,21 @@ Step 1: Clone this repository https://github.com/ibm-watson-iot/iot-nodejs to ge
 
 Step 2: Add this parent folder of the cloned repository folder in the [js](https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www/js) folder.
 
-Step 3: Edit [index.html](https://github.com/iotify/smarttrash/blob/master/TrashCanApp/www/index.html) file add this line
-          
-          -> "js/iot-nodejs/dist/iotf-client-bundle.js"
-
-Step 4: To make nodejs package work work have to download the require.js program from the link below 
-
-          -> http://requirejs.org/docs/download.html#requirejs
-          
-Step 5: Copy the require.js file under [js]((https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www/js) folder.
-
-Step 6: Add require.js file in the index.html
-          -> "js/require.js"
 
 
-Step 7: Create an empty directory and change to that directory. This is the root directory for this Cordova project.
 
-          -> Create a cordova project using the command 
 
-	          cordova create appname
-
-Step 8: Add the app package in the folder [www](https://github.com/iotify/smarttrash/tree/master/TrashCanApp/www) in the newly created cordova app folder.
-
-Step 9: Add the android platform by executing this command in the terminal
+Step 3: Add the android platform by executing this command in the terminal under the app root folder ( TrashCanApp)
 
 		cordova platform add android
 		
-Step 10:	In the config.xml file in the root folder change the name of the app to the name you want.
+Step 4:	In the config.xml file in the root folder change the name of the app to the name you want. This is optional step. By default the app name is "Trash Can"
 
-Step 11: Build the app by executing the following command in the terminal in the root folder of the cordova app
+Step 5: Build the app by executing the following command in the terminal in the root folder of the cordova app
           
           cordova build android
 
-Step 12: You can find the generated apk file in the following path relative to the cordova project root directory.
+Step 6: Once build is successful, you can find the generated apk file in the following path relative to the cordova project root directory.
 	
 		/platforms/android/build/outputs/apk
 			
