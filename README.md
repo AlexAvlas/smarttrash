@@ -8,6 +8,10 @@ This project is an IoT enabled Smart Trash Can which can update users about its 
 Mobile app which is used to display the current level of filled trash inside the can. The trash can is powered by IOTIFY's raspberry pi simulator and has a ultrasonic sensor which is used to sense the level.  The hardware connection between Raspberry Pi and ultrasonic sensor is as per the IOTIFY TrasnCan project description.
 
 
+# [Pre Requisites](#pre-requisites)
+
+1. [IBM Id Bluemix Account](https://console.ng.bluemix.net/registration/) 
+2. [Twillio Account](https://www.twilio.com/try-twilio)
 
 
 # [Python Script Configuration](#python-script-configuration)
@@ -33,7 +37,7 @@ Edit the variables in the following lines as follows
 
           authToken	      190                Generated Authentication token
 
-# [Mobile App Configuration](#mobile-app-config)
+# [Mobile App Configuration](#mobile-app-configuration)
 The IBM IoT platform configurations has to be done in the mobile app as well, since the mobile app is also registered as a device instance for receiving the readings published by the trash can.
 
 Edit the line numbers in [index.js](https://github.com/iotify/smarttrash/blob/master/TrashCanApp/www/js/index.js)
@@ -47,7 +51,7 @@ Edit the line numbers in [index.js](https://github.com/iotify/smarttrash/blob/ma
           auth-token           61                  Generated authentication token  
 
 
-# [Steps to Build the Mobile App](#mobile-app-build)
+# [Steps to Build the Mobile App](#steps-to-build-the-mobile-app)
 
 For building the mobile app, please refer to the official Cordova & Android documentation to setup the build dependencies. You will have to setup a build system with the dependencies, primarily the NodeJS, Java and Ant among others. 
 
