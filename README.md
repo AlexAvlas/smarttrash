@@ -10,7 +10,7 @@ Mobile app which is used to display the current level of filled trash inside the
 
 
 
-# [Python Script Configuration](#pre-requisites)
+# [Python Configuration](#pre-requisites)
 You will have to add some configuration settings to make the application work with IBM IoT platform service and Twilio messaging.
 These configurations are to be done as variables, which are already defined in the trash can's application code under [Trashcan.py](https://github.com/iotify/smarttrash/blob/master/Trashcan.py).
 
